@@ -27,3 +27,10 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 ```
 ~$ exampleCommand -f -f example.txt
 ```
+
+### DEPENDENCIES
+ - 
+ - 
+ - 
+
+### RUNNING THIS PROGRAM LOCALLY
