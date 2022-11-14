@@ -3,7 +3,6 @@
 Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 
 *- <3 Stephen*
-*- <3 Caleb*
 ### Rubric (50/50)
 
 - [ ] Top 10,000 most common passwords can be cracked
