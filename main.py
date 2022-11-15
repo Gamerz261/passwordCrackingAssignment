@@ -1,8 +1,6 @@
 # Import all methods from the method file -- Also runs the file
-
-
 from methods import *
-import getopt
+import getopt 
 
 mode = ""
 
