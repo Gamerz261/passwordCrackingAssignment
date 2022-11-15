@@ -1,5 +1,10 @@
 # Import all methods from the method file -- Also runs the file
+
+
 from methods import *
+import getopt
+
+mode = ""
 
 def print_hi(name):
     # Sample code
