@@ -2,26 +2,35 @@
 #///from methods import *
 import sys, getopt
 
-mode = ""
+mode = []
 
 def main(argv):
    inputfile = ''
    outputfile = ''
    try:
-      opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+      opts, args = getopt.getopt(argv,"hi:o:")
    except getopt.GetoptError:
       print('test.py -i <inputfile> -o <outputfile>')
       sys.exit(2)
    for opt, arg in opts:
-      if opt == '-h':
+      if opt in ("-h"):
          print('test.py -i <inputfile> -o <outputfile>')
-         sys.exit()
-      elif opt in ("-i", "--ifile"):
+         mode.append(opt)
+         ##sys.exit()
+      elif opt in ("-i"):
          inputfile = arg
-      elif opt in ("-o", "--ofile"):
+         mode += opt
+      elif opt in ("-o"):
          outputfile = arg
+         mode += opt
    print('Input file is "', inputfile)
    print('Output file is "', outputfile)
+   
 
+def decrypt(option):
+   if '-i' in mode:
+      print("h");
+   if '-h' in mode:
+      print("what")
 if __name__ == "__main__":
    main(sys.argv[1:])
