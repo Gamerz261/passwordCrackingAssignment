@@ -2,12 +2,16 @@
 #///from methods import *
 import sys, getopt
 
+
 mode = []
 
 def main(argv):
-   inputfile = ''
-   outputfile = ''
+   # Initilize variables for use in running the proper method for encrypting or decrypting the password
+   type = ''
+   password = ''
+   hash = ''
 
+   # Takes in arguments from the command line
    try:
       opts, args = getopt.getopt(argv,"hi:o:")
    except getopt.GetoptError:
@@ -23,9 +27,6 @@ def main(argv):
       elif opt in ("-o"):
          outputfile = arg
          mode.append(opt)
-   print('Input file is "', inputfile)
-   print('Output file is "', outputfile)
-   print(mode)
    decrypt()
    
 
