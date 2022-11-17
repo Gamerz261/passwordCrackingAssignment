@@ -1,9 +1,9 @@
 # MD5: Encrypt and decrypt
-
+import hashlib
 from hashlib import md5
 
 class MD5:
-    def __init__(self, data = "Hello, world!"):
+    def __init__(self, data = "5a8dd3ad0756a93ded72b823b19dd877"):
         self.data = data
     def encrypt(self):
         self.data = md5(self.data.encode()).hexdigest()
@@ -15,6 +15,6 @@ class MD5:
         else:
             return "Error"
 
-crypt = MD5()
-print(crypt.encrypt()) # Encrypt
-print(crypt.decrypt("Hello, world!")) # Decrypt data argument
+#crypt = MD5()
+#print(crypt.encrypt()) # Encrypt
+#print(crypt.decrypt("5a8dd3ad0756a93ded72b823b19dd877")) # Decrypt data argument
