@@ -19,12 +19,13 @@ def main(argv):
          ##sys.exit()
       elif opt in ("-i"):
          inputfile = arg
-         mode += opt
+         mode.append(opt)
       elif opt in ("-o"):
          outputfile = arg
-         mode += opt
+         mode.append(opt)
    print('Input file is "', inputfile)
    print('Output file is "', outputfile)
+   print(mode)
    
 
 def decrypt(option):
