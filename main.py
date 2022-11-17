@@ -26,7 +26,6 @@ def main(argv):
    print('Input file is "', inputfile)
    print('Output file is "', outputfile)
    print(mode)
-   
    decrypt()
    
 
