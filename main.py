@@ -3,6 +3,7 @@
 import sys, getopt
 
 mode = []
+inputPassword = ''
 
 def main(argv):
    inputfile = ''
@@ -32,6 +33,14 @@ def main(argv):
 def decrypt():
    if '-i' in mode:
       print("*");
+   if '-d' in mode:
+      InputFile = open(r"passlist.txt","r")
+      content = InputFile.readlines()
+      for i in content:
+         if content[i] == inputPassword:
+            print("password found!")
+            break
+      InputFile.close()
 
 if __name__ == "__main__":
    main(sys.argv[1:])
