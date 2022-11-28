@@ -1,7 +1,7 @@
 # Import all methods from the method file -- Also runs the file
 #///from methods import *
 import sys, getopt
-
+from Methods.md5 import MD5
 
 mode = []
 inputPassword = ''
@@ -28,10 +28,12 @@ def main(argv):
       elif opt in ("-o"):
          outputfile = arg
          mode.append(opt)
-   decrypt()
+      elif opt in ("-m"):
+         mode.append(opt)
+   decrypt(hash)
    
 
-def decrypt():
+def decrypt(hash):
    if '-i' in mode:
       print("*");
    if '-d' in mode:
@@ -42,6 +44,10 @@ def decrypt():
             print("password found!")
             break
       InputFile.close()
+   if '-m' in mode:
+      print("lol")
+      MD5.__init__('5a8dd3ad0756a93ded72b823b19dd877')
+      print(MD5.decrypt('5a8dd3ad0756a93ded72b823b19dd877'))
 
 if __name__ == "__main__":
    main(sys.argv[1:])
