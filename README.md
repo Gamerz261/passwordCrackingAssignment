@@ -10,15 +10,17 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 - [ ] BCrypt hashed passwords can be checked
 - [ ] SHA-256 hashed passwords can be checked
 - [ ] Brute force approach option
-- [ ] Dictionary Attack option
+- [x] Dictionary Attack option
 - [X] Command line arguments can be taken in
 
 ### FLAGS
 
 ```
 -h               // HELP 
--i               // INPUT FILE
--o               // OUTPUT FILE
+-d <file>        // DICTIONARY ATTACK
+-m               // md5 ATTACK
+-s               // sha256 ATTACK
+-b               // BCrypt ATTACK
 /** ARGUMENTS **/
 ```
 
@@ -27,6 +29,8 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 ```
 ~$ exampleCommand -f -f example.txt
 ```
+
+The console will then prompt you with a space to type in the password or hash according to the option you selected.
 
 ### DEPENDENCIES
  - 
