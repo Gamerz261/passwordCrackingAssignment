@@ -4,7 +4,7 @@ import sys, getopt
 from Methods.md5 import MD5
 
 mode = []
-inputPassword = ''
+inputPassword = 'password' + '\n'
 
 def main(argv):
    # Initilize variables for use in running the proper method for encrypting or decrypting the password
@@ -14,7 +14,7 @@ def main(argv):
 
    # Takes in arguments from the command line
    try:
-      opts, args = getopt.getopt(argv,"hi:o:")
+      opts, args = getopt.getopt(argv,"himd:o:")
    except getopt.GetoptError:
       #print('test.py -i <inputfile> -o <outputfile>')
       sys.exit(2)
@@ -42,10 +42,9 @@ def decrypt(hash):
    if '-d' in mode:
       InputFile = open(r"passlist.txt","r")
       content = InputFile.readlines()
-      for i in content:
-         if content[i] == inputPassword:
-            print("password found!")
-            break
+      #print(content)
+      if inputPassword in content:
+         print("password found!")
       InputFile.close()
    if '-m' in mode:
       print("lol")
