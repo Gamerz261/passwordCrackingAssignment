@@ -28,6 +28,8 @@ def main(argv):
       elif opt in ("-o"):
          outputfile = arg
          mode.append(opt)
+      elif opt in ("-d"):
+         mode.append(opt)
       elif opt in ("-m"):
          mode.append(opt)
    decrypt(hash)
