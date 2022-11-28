@@ -4,7 +4,7 @@ import sys, getopt
 from Methods.md5 import MD5
 
 mode = []
-inputPassword = 'password' + '\n'
+inputPassword = str(input("Input password to be cracked:")) + '\n'
 
 def main(argv):
    # Initilize variables for use in running the proper method for encrypting or decrypting the password
