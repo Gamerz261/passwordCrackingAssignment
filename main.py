@@ -8,25 +8,17 @@ inputPassword = str(input("Input password to be cracked:")) + '\n'
 
 def main(argv):
    # Initilize variables for use in running the proper method for encrypting or decrypting the password
-   type = ''
-   password = ''
    hash = ''
 
    # Takes in arguments from the command line
    try:
-      opts, args = getopt.getopt(argv,"himd:o:")
+      opts, args = getopt.getopt(argv,"hmd:")
    except getopt.GetoptError:
       #print('test.py -i <inputfile> -o <outputfile>')
       sys.exit(2)
    for opt, arg in opts:
       if opt in ("-h"):
          print('Syntax:')
-         mode.append(opt)
-      elif opt in ("-i"):
-         inputfile = arg
-         mode.append(opt)
-      elif opt in ("-o"):
-         outputfile = arg
          mode.append(opt)
       elif opt in ("-d"):
          mode.append(opt)
@@ -37,8 +29,6 @@ def main(argv):
 
 def decrypt(hash):
    print(mode)
-   if '-i' in mode:
-      print("*");
    if '-d' in mode:
       InputFile = open(r"passlist.txt","r")
       content = InputFile.readlines()
