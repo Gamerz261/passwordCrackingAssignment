@@ -16,7 +16,7 @@ def main(argv):
    try:
       opts, args = getopt.getopt(argv,"hi:o:")
    except getopt.GetoptError:
-      print('test.py -i <inputfile> -o <outputfile>')
+      #print('test.py -i <inputfile> -o <outputfile>')
       sys.exit(2)
    for opt, arg in opts:
       if opt in ("-h"):
@@ -33,9 +33,10 @@ def main(argv):
       elif opt in ("-m"):
          mode.append(opt)
    decrypt(hash)
-   
+
 
 def decrypt(hash):
+   print(mode)
    if '-i' in mode:
       print("*");
    if '-d' in mode:
