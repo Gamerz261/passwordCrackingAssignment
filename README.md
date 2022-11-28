@@ -17,7 +17,7 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 
 ```
 -h               // HELP 
--d <file>        // DICTIONARY ATTACK
+-d               // DICTIONARY ATTACK
 -m               // md5 ATTACK
 -s               // sha256 ATTACK
 -b               // BCrypt ATTACK
@@ -27,14 +27,16 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 ### FORMATTING
 
 ```
-~$ exampleCommand -f -f example.txt
+~$ python3 main.py <FLAG>
 ```
-
-The console will then prompt you with a space to type in the password or hash according to the option you selected.
+The program will then promt you through the encryption or decryption process.
 
 ### DEPENDENCIES
- - 
- - 
- - 
+ - Python3 (duh)
+ - hashlib
+ - sys
+ - getopt
 
 ### RUNNING THIS PROGRAM LOCALLY
+
+To run this program please download and install all of the nessecary dependencies and run the example command above
