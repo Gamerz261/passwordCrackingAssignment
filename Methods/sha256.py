@@ -1,30 +1,39 @@
-import hashlib
+import hashlib, multiprocessing
 from Methods.dictionaryAttack import DictionaryAttack
 from hashlib import sha256
 
 class SHA256:
 
-    global userIn
     userIn = ''
 
     def encrypt(self,runner):
-        userIn = runner
-        hashedInput = hashlib.sha256(userIn.encode('utf-8')).hexdigest()
+        hashedInput = hashlib.sha256(runner.encode('utf-8')).hexdigest()
         return hashedInput
-    def decrypt(self):
-        print(userIn)
-        hashed = SHA256.encrypt(self)
-        content = ''
-        content1 = ''
+
+    def decrypt(self, runner):
+        userIn = runner
+        password = ''
+        hashword = ''
+        white = "\033[38;5;252m"
+        pink = "\033[38;5;5m"
+        red = "\033[38;5;1m"
+        orange = "\033[38;5;3m"
+        green = "\033[38;5;150m"
+        blue = "\033[38;5;4m"
+        purple = "\033[38;5;20m"
         for count in range(10000):
-            content = DictionaryAttack.list(self ,count).rstrip()
-            content1 = hashlib.sha256(content.encode('utf-8')).hexdigest()
+            password = DictionaryAttack.list(self ,count).rstrip()
+            hashword = hashlib.sha256(password.encode('utf-8')).hexdigest()
             cracked = False
-            if content1 == hashed:
+            if hashword == userIn:
                 cracked = True
                 break
         if cracked:
-            print("Password Found! \nPassword: " + content + "\nSHA256 Hash: " + content1)
+            print(purple + "Password Found!")
+            print(green + "Password:",end = ' ')
+            print(white + password)
+            print(green + "SHA256 Hash:",end = ' ')
+            print(white + hashword)
         else:
             print("That password is not in the top 10000 passwords.")
 

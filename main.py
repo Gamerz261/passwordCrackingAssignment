@@ -7,6 +7,14 @@ from Methods.dictionaryAttack import DictionaryAttack
 
 mode = []
 
+white = "\033[38;5;252m"
+pink = "\033[38;5;5m"
+red = "\033[38;5;1m"
+orange = "\033[38;5;3m"
+green = "\033[38;5;150m"
+blue = "\033[38;5;4m"
+purple = "\033[38;5;20m"
+
 def main(argv):
     # Initialize variables for use in running the proper method for encrypting or decrypting the password
 
@@ -19,27 +27,26 @@ def main(argv):
    for opt, arg in opts:
 
       if ((opt in ("-m")) or (opt in ("-s"))):
-         eod = int(input("1 for Encrypt, 2 for Decrypt: "))
+         eod = int(input(purple + "1 for Encrypt, 2 for Decrypt: "))
 
       if opt in ("-h"):
-         print('Syntax:')
+         print(blue + "Syntax: ")
          mode.append(opt)
       elif opt in "-d":
          mode.append(opt)
-         decrypt(str(input("Input hash to be cracked: ")) + "\n")
+         decrypt(str(input(red + "Input hash to be cracked: ")) + "\n")
       elif opt in ("-m"):
          mode.append(opt)
          if eod == 1:
-            encrypt(str(input("Password to be hashed: ")))
+            encrypt(str(input(blue + "Password to be hashed: ")))
          if eod == 2:
-            decrypt(str(input("Input hash to be cracked: ")))
+            decrypt(str(input(red + "Input hash to be cracked: ")))
       elif opt in '-s':
          mode.append(opt)
          if eod == 1:
-            encrypt(str(input("Password to be hashed: ")))
+            encrypt(str(input(blue + "Password to be hashed: ")))
          if eod == 2:
-            decrypt(str(input("Input hash to be cracked: ")))
-
+            decrypt(str(input(red + "Input hash to be cracked: ")))
 
 # Methods for decrypting a file
 def decrypt(variable):
@@ -47,25 +54,24 @@ def decrypt(variable):
         runner = DictionaryAttack()
         print(runner.check(variable))
     if '-m' in mode:
-        print("Cracking..... \n")
+        print("Cracking..... ")
         runner = MD5(variable)
         print(runner.decrypt())
     if '-s' in mode:
-        print("Cracking..... \n")
-        runner = SHA256()
-        print(decrypt(runner))
+        print("Cracking..... ")
+        print(SHA256.decrypt(0, variable))
 
 
 # This is mostly just a convenience.
 def encrypt(variable):
     if '-m' in mode:
-        print("Encrypting..... \n")
+        print("Encrypting..... ")
         runner = MD5(variable)
         print(runner.encrypt())
     if '-s' in mode:
-        print("Encrypting..... \n")
-        runner = SHA256(variable)
-        print(runner.encrypt())
+        print("Encrypting..... ")
+        print(green + "SHA256 Encrypted:", end = ' ')
+        print(white + SHA256.encrypt(0, variable))
 
 if __name__ == "__main__":
     main(sys.argv[1:])
