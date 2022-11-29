@@ -1,18 +1,20 @@
 # Import all methods from the method file -- Also runs the file
 #///from methods import *
-import sys, getopt, hashlib
+import sys, getopt
 from Methods.md5 import MD5
+from Methods.sha256 import SHA256
+from Methods.dictionaryAttack import DictionaryAttack
 
 mode = []
-inputPassword = str(input("Input password to be cracked:"))
+# Moved to flag if-statements to allow for prompts to be customizable for each hash
+#inputPassword = str(input("Input password to be cracked:")) + '\n'
 
 def main(argv):
-   # Initilize variables for use in running the proper method for encrypting or decrypting the password
-   hash = ''
+    # Initialize variables for use in running the proper method for encrypting or decrypting the password
 
-   # Takes in arguments from the command line
+    # Takes in arguments from the command line
    try:
-      opts, args = getopt.getopt(argv,"hmds:")
+      opts, args = getopt.getopt(argv,"hmsd:")
    except getopt.GetoptError:
       #print('test.py -i <inputfile> -o <outputfile>')
       sys.exit(2)
@@ -20,44 +22,43 @@ def main(argv):
       if opt in ("-h"):
          print('Syntax:')
          mode.append(opt)
-      elif opt in ("-d"):
+      elif opt in "-d":
          mode.append(opt)
+         user = str(input("Input hash to be cracked: ")) + "\n"
+         decrypt(user)
       elif opt in ("-m"):
          mode.append(opt)
-      elif opt in ("-s"):
+         eod = input("1 for encrypt, 2 for decrypt")
+         if eod == 1:
+            encrypt(str(input("Input hash to be cracked: ")))
+         if eod == 2:
+            decrypt(str(input("Input hash to be cracked: ")))
+      elif opt in '-s':
          mode.append(opt)
-   decrypt(hash)
+         user = str(input("Input hash to be cracked: ")) + "\n"
+         decrypt(user)
 
 
-def decrypt(hash):
-   print(mode)
-   if '-d' in mode:
-      InputFile = open(r"passList.txt","r")
-      content = InputFile.readlines()
-      #print(content)
-      if inputPassword in content:
-         print("password found!")
-      InputFile.close()
+# Methods for decrypting a file
+def decrypt(variable):
+    if '-d' in mode:
+        runner = DictionaryAttack()
+        print(runner.check(variable))
+    if '-m' in mode:
+        print("Cracking..... \n")
+        runner = MD5(variable)
+        print(runner.decrypt())
+    if '-s' in mode:
+        print("Cracking..... \n")
+        runner = SHA256(variable)
+        print(runner.decrypt())
 
-   if '-m' in mode:
-      print("lol")
-      MD5.__init__('5a8dd3ad0756a93ded72b823b19dd877')
-      print(MD5.decrypt('5a8dd3ad0756a93ded72b823b19dd877'))
 
-   if '-s' in mode:
-      hashedInput = hashlib.sha256(inputPassword.encode('utf-8'))
-      #print ("what" + str(hashedInput))
-      print(inputPassword)
-      print(hashedInput)
-      InputFile = open(r"passList.txt","r")
-      content = InputFile.readlines()
-      count = 0;
-      for line in content:
-         count +=1 
-         #print(line)
-         #print(hashlib.sha256(line.encode('utf-8')))
-         if (hashedInput == hashlib.sha256(line.encode('utf-8'))):
-            print("Password found:")
-      InputFile.close()
+# This is mostly just a convenience.
+def encrypt(variable):
+    if '-m' in mode:
+        runner = MD5(variable)
+        print(runner.encrypt())
+
 if __name__ == "__main__":
-   main(sys.argv[1:])
+    main(sys.argv[1:])
