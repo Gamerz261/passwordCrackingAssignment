@@ -8,7 +8,7 @@ class MD5:
         self.data = input
     def encrypt(self):
         self.data = md5(self.data.encode()).hexdigest()
-        return "Crypted: "+self.data
+        return "MD5 Encrypted: "+self.data
     def decrypt(self):
         md5(data.encode()).hexdigest()
 
