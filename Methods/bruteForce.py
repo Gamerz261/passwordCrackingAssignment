@@ -27,6 +27,8 @@ class BruteForce:
 
                 if letter.rstrip() == passwordSet.rstrip():
                     distance = time.time() - start
-                    print(green+"Cracked the password" + white + " %s in %s tries and %s seconds!" % (passwordSet, attempts, distance))
+                    print(pink+"Cracked the password in %s seconds and %s attempts!" % (distance, attempts))
+                    print(green + "Password: ",end = '')
+                    print(white + passwordSet,end='')
                     return
                 

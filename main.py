@@ -23,9 +23,9 @@ def main(argv):
 
     # Takes in arguments from the command line
     try:
-        opts, args = getopt.getopt(argv, "hmsfdbx:")
+        opts, args = getopt.getopt(argv, "hmsdfbx:")
     except getopt.GetoptError:
-        # print('test.py -i <inputfile> -o <outputfile>')
+
         sys.exit(2)
     for opt, arg in opts:
         if (opt in "-m") or (opt in "-s") or (opt in "-b"):
@@ -64,8 +64,7 @@ def main(argv):
 def decrypt(variable):
     if '-d' in mode:
         runner = DictionaryAttack()
-        print(runner.check
-        (variable))
+        print(runner.check(variable))
     if '-f' in mode:
         print("Cracking..... ")
         print(BruteForce.tryPassword(variable))
@@ -87,14 +86,18 @@ def encrypt(variable):
     if '-m' in mode:
         print("Encrypting..... ")
         runner = MD5(variable)
-        print(runner.encrypt())
+        print(green + "Password: " + white + str(variable))
+        print(green + "MD5 Encrypted:", end=' ')
+        print(white + runner.encrypt())
     if '-s' in mode:
         print("Encrypting..... ")
+        print(green + "Password: " + white + str(variable))
         print(green + "SHA256 Encrypted:", end=' ')
         print(white + SHA256.encrypt(0, variable))
     if 'b' in mode:
         print("Encrypting..... ")
         runner = BCrypt(variable)
+        print(green + "Password: " + white + str(variable))
         print(green + "BCrypt Encrypted:", end=' ')
         print(white + runner.encrypt(variable))
 

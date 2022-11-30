@@ -1,5 +1,5 @@
 # MD5: Encrypt and decrypt
-import hashlib
+import hashlib,time
 from hashlib import md5
 # Import libraries from the dictionary attack file
 from Methods.dictionaryAttack import DictionaryAttack
@@ -30,16 +30,20 @@ class MD5:
         # Output Variables
         password = ''
         hashword = ''
-
+        start = time.time()
+        distance = ""
+        attempts = 0
         for count in range(10000):
+            attempts += 1
             password = DictionaryAttack.list(self, count).rstrip()
             hashword = hashlib.md5(password.encode('utf-8')).hexdigest()
             cracked = False
             if hashword == self.data:
+                distance = time.time() - start
                 cracked = True
                 break
         if cracked:
-            print(self.pink + "Password Found!")
+            print(self.pink + "Password found in " + str(distance) + " seconds and " + str(attempts) + " attempts!")
             print(self.green + "Password:", end=' ')
             print(self.white + password)
             print(self.green + "MD5 Hash:", end=' ')
