@@ -4,8 +4,6 @@ from hashlib import sha256
 
 class SHA256:
 
-    userIn = ''
-
     def encrypt(self,runner):
         hashedInput = hashlib.sha256(runner.encode('utf-8')).hexdigest()
         return hashedInput
@@ -14,6 +12,7 @@ class SHA256:
         userIn = runner
         password = ''
         hashword = ''
+
         white = "\033[38;5;252m"
         pink = "\033[38;5;5m"
         red = "\033[38;5;1m"
@@ -21,6 +20,7 @@ class SHA256:
         green = "\033[38;5;150m"
         blue = "\033[38;5;4m"
         purple = "\033[38;5;20m"
+        
         for count in range(10000):
             password = DictionaryAttack.list(self ,count).rstrip()
             hashword = hashlib.sha256(password.encode('utf-8')).hexdigest()

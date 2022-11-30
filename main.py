@@ -1,6 +1,6 @@
 # Import all methods from the method file -- Also runs the file
 #///from methods import *
-import sys, getopt
+import sys, getopt, bcrypt
 from Methods.md5 import MD5
 from Methods.sha256 import SHA256
 from Methods.dictionaryAttack import DictionaryAttack
