@@ -5,6 +5,7 @@ from Methods.md5 import MD5
 from Methods.sha256 import SHA256
 from Methods.dictionaryAttack import DictionaryAttack
 from Methods.bcrypt import BCrypt
+from Methods.bruteForce import BruteForce
 
 mode = []
 
@@ -22,12 +23,11 @@ def main(argv):
 
     # Takes in arguments from the command line
     try:
-        opts, args = getopt.getopt(argv, "hmsdb:")
+        opts, args = getopt.getopt(argv, "hmsfdbx:")
     except getopt.GetoptError:
         # print('test.py -i <inputfile> -o <outputfile>')
         sys.exit(2)
     for opt, arg in opts:
-
         if (opt in "-m") or (opt in "-s") or (opt in "-b"):
             eod = int(input(pink + "1 for Encrypt, 2 for Decrypt: "))
 
@@ -37,6 +37,9 @@ def main(argv):
         elif opt in "-d":
             mode.append(opt)
             decrypt(str(input(red + "Input hash to be cracked: ")) + "\n")
+        elif opt in "-f":
+            mode.append(opt)
+            decrypt(str(input(red + "Input password to be cracked through brute force: ")) + "\n")
         elif opt in ("-m"):
             mode.append(opt)
             if eod == 1:
@@ -61,7 +64,11 @@ def main(argv):
 def decrypt(variable):
     if '-d' in mode:
         runner = DictionaryAttack()
-        print(runner.check(variable))
+        print(runner.check
+        (variable))
+    if '-f' in mode:
+        print("Cracking..... ")
+        print(BruteForce.tryPassword(variable))
     if '-m' in mode:
         print("Cracking..... ")
         runner = MD5(variable)

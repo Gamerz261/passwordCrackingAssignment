@@ -1,6 +1,7 @@
 import hashlib, multiprocessing
 from Methods.dictionaryAttack import DictionaryAttack
 from hashlib import sha256
+import time
 
 class SHA256:
 
@@ -12,6 +13,8 @@ class SHA256:
         userIn = runner
         password = ''
         hashword = ''
+        start = time.time()
+        distance = ""
 
         white = "\033[38;5;252m"
         pink = "\033[38;5;5m"
@@ -26,14 +29,16 @@ class SHA256:
             hashword = hashlib.sha256(password.encode('utf-8')).hexdigest()
             cracked = False
             if hashword == userIn:
+                distance = time.time() - start
                 cracked = True
                 break
         if cracked:
-            print(purple + "Password Found!")
+            print(purple + "Password found in " + str(distance) + " seconds!")
             print(green + "Password:",end = ' ')
             print(white + password)
             print(green + "SHA256 Hash:",end = ' ')
             print(white + hashword)
+            
         else:
             print("That password is not in the top 10000 passwords.")
 
