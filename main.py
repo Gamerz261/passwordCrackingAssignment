@@ -67,14 +67,16 @@ def decrypt(variable):
         print(runner.check(variable))
     if '-f' in mode:
         print("Cracking..... ")
-        print(BruteForce.tryPassword(variable))
+        runner = BruteForce(variable)
+        print(runner.tryPassword())
     if '-m' in mode:
         print("Cracking..... ")
         runner = MD5(variable)
         print(runner.decrypt())
     if '-s' in mode:
         print("Cracking..... ")
-        print(SHA256.decrypt(0, variable))
+        runner = SHA256(variable)
+        print(runner.decrypt())
     if '-b' in mode:
         print("Cracking..... ")
         runner = BCrypt(variable)
@@ -91,15 +93,16 @@ def encrypt(variable):
         print(white + runner.encrypt())
     if '-s' in mode:
         print("Encrypting..... ")
+        runner = SHA256(variable)
         print(green + "Password: " + white + str(variable))
         print(green + "SHA256 Encrypted:", end=' ')
-        print(white + SHA256.encrypt(0, variable))
+        print(white + runner.encrypt())
     if 'b' in mode:
         print("Encrypting..... ")
         runner = BCrypt(variable)
         print(green + "Password: " + white + str(variable))
         print(green + "BCrypt Encrypted:", end=' ')
-        print(white + runner.encrypt(variable))
+        print(white + runner.encrypt())
 
 
 if __name__ == "__main__":

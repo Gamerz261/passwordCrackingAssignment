@@ -18,9 +18,9 @@ class MD5:
     blue = "\033[38;5;4m"
     purple = "\033[38;5;20m"
 
-    def __init__(self, input):
+    def __init__(self, user):
         # Initialize variable
-        self.data = input
+        self.data = user
 
     def encrypt(self):
         self.data = md5(self.data.encode()).hexdigest()
