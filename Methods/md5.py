@@ -1,16 +1,51 @@
 # MD5: Encrypt and decrypt
 import hashlib
 from hashlib import md5
+# Import libraries from the dictionary attack file
+from Methods.dictionaryAttack import DictionaryAttack
+
 
 class MD5:
+    # Define storage for hash
     data = ''
+
+    # CoLoR cOdEs
+    white = "\033[38;5;252m"
+    pink = "\033[38;5;5m"
+    red = "\033[38;5;1m"
+    orange = "\033[38;5;3m"
+    green = "\033[38;5;150m"
+    blue = "\033[38;5;4m"
+    purple = "\033[38;5;20m"
+
     def __init__(self, input):
+        # Initialize variable
         self.data = input
+
     def encrypt(self):
         self.data = md5(self.data.encode()).hexdigest()
-        return "MD5 Encrypted: "+self.data
+        return self.data
+
     def decrypt(self):
-        md5(data.encode()).hexdigest()
+        # Output Variables
+        password = ''
+        hashword = ''
+
+        for count in range(10000):
+            password = DictionaryAttack.list(self, count).rstrip()
+            hashword = hashlib.md5(password.encode('utf-8')).hexdigest()
+            cracked = False
+            if hashword == self.data:
+                cracked = True
+                break
+        if cracked:
+            print(self.pink + "Password Found!")
+            print(self.green + "Password:", end=' ')
+            print(self.white + password)
+            print(self.green + "MD5 Hash:", end=' ')
+            print(self.white + hashword)
+        else:
+            print(self.red + "That password is not in the top 10000 passwords.")
 
 # Experimental
 # crypt = MD5("Hello, world!")
