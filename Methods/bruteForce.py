@@ -32,8 +32,12 @@ class BruteForce:
 
                 if letter.rstrip() == self.data.rstrip():
                     distance = time.time() - start
-                    print(self.pink+"Cracked the password in %s seconds and %s attempts!" % (distance, attempts))
-                    print(self.green + "Password: ",end = '')
-                    print(self.white + self.data,end='')
-                    return
+                    return distance, attempts
+
+    def fPrint(self):
+        distance, attempts = self.tryPassword()
+        print(self.pink+"Password found through brute force in %s seconds and %s attempts!" % (distance, attempts))
+        print(self.green + "Password: " + self.white + self.data, end='')
+        
+
                 
