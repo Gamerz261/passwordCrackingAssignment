@@ -1,5 +1,5 @@
 # MD5: Encrypt and decrypt
-import hashlib,time
+import hashlib,time, itertools
 from hashlib import md5
 # Import libraries from the dictionary attack file
 from Methods.dictionaryAttack import DictionaryAttack
@@ -18,6 +18,13 @@ class MD5:
     blue = "\033[38;5;4m"
     purple = "\033[38;5;20m"
 
+    chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
+
+    start = time.time()
+    distance = ""
+    attempts = 0
+    cracked = False
+
     def __init__(self, user):
         # Initialize variable
         self.data = user
@@ -25,6 +32,20 @@ class MD5:
     def encrypt(self):
         self.data = md5(self.data.encode()).hexdigest()
         return self.data
+
+    def bruteDecrypt(self): #this fr just took 14 minutes on a random 5 digit password but it works i guess
+        print(self.blue + "Beginning brute force cracking... This may take a while.")
+        for i in range(1, 9):
+            for letter in itertools.product(self.chars, repeat=i):
+                self.attempts += 1
+                letter = ''.join(letter)
+                letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
+
+                if letterHash.rstrip() == self.data.rstrip():
+                    self.distance = time.time() - self.start
+                    print(self.pink + "Password found through brute force in " + str(self.distance)+ " seconds and "+ str(self.attempts) + " attempts!")
+                    print(self.green + "Password: " + self.white + letter)
+                    return
 
     def decrypt(self):
         # Output Variables
@@ -49,7 +70,12 @@ class MD5:
             print(self.green + "MD5 Hash:", end=' ')
             print(self.white + hashword)
         else:
-            print(self.red + "That password is not in the top 10000 passwords.")
+            print(self.red + "That password is not in the top 10,000 passwords.")
+            user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
+            if user == 'y':
+                self.bruteDecrypt()
+            else:
+                return
 
 # Experimental
 # crypt = MD5("Hello, world!")
