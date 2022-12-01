@@ -4,7 +4,8 @@ class DictionaryAttack:
     def __int__(self):
         print('Running Dictionary Attack')
     def check(self, password):
-        input_file = open(r"passlist.txt", "r")
+        #input_file = open(r"passlist.txt", "r") Small Dict
+        input_file = open(r"bigDict.txt", "r") # Big Dict
         content = input_file.readlines()
         # print(content)
         if password in content:
