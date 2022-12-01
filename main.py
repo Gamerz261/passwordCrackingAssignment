@@ -86,10 +86,10 @@ def encrypt(variable):
         runner = SHA256(variable)
         print(green + "Password: " + white + str(variable))
         print(green + "SHA256 Encrypted: " + white + runner.encrypt())
-    if 'b' in mode:
+    if '-b' in mode:
         runner = BCrypt(variable)
         print(green + "Password: " + white + str(variable))
-        print(green + "BCrypt Encrypted: " + white + runner.encrypt())
+        print(green + "BCrypt Encrypted: " + white + str(runner.encrypt())[2:-1])
 
 if __name__ == "__main__":
     main(sys.argv[1:])

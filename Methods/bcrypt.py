@@ -1,4 +1,5 @@
-import bcrypt
+import bcrypt, time
+from Methods.dictionaryAttack import DictionaryAttack
 
 class BCrypt:
     data = ''
@@ -12,7 +13,7 @@ class BCrypt:
     blue = "\033[38;5;4m"
     purple = "\033[38;5;20m"
 
-    def __int__(self, user):
+    def __init__(self, user):
         self.data = user
 
     def encrypt(self):
@@ -25,4 +26,25 @@ class BCrypt:
         return hashedPassword
 
     def decrypt(self):
-        print('augh v2')
+        # Output Variables
+        password = ''
+        hashword = ''
+        start = time.time()
+        distance = ""
+        attempts = 0
+        for count in range(10000):
+            attempts += 1
+            password = DictionaryAttack.list(self, count).rstrip()
+            cracked = False
+            if bcrypt.checkpw(password.encode('utf-8'), self.data.encode('utf-8')):
+                distance = time.time() - start
+                cracked = True
+                break
+        if cracked:
+            print(self.pink + "Password found in " + str(distance) + " seconds and " + str(attempts) + " attempts!")
+            print(self.green + "Password:", end=' ')
+            print(self.white + password)
+            print(self.green + "BCrypt Hash:", end=' ')
+            print(self.white + str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))[2:-1])
+        else:
+            print(self.red + "That password is not in the top 10000 passwords.")
