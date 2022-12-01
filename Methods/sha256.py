@@ -1,4 +1,4 @@
-import hashlib, time, itertools
+import hashlib, time, itertools, os
 from Methods.dictionaryAttack import DictionaryAttack
 from Methods.bruteForce import BruteForce
 class SHA256:
@@ -43,7 +43,8 @@ class SHA256:
                     return
                     
     def dictDecrypt(self):
-        for count in range(10000): # Find a way to make this the line count of passlist.txt, not hardcoded
+        dictSize = DictionaryAttack.dictSize(self)
+        for count in range(dictSize):
             self.attempts+=1
             self.password = DictionaryAttack.list(self ,count).rstrip()
             self.hashword = hashlib.sha256(self.password.encode('utf-8')).hexdigest()
@@ -56,7 +57,7 @@ class SHA256:
             print(self.green + "Password:" + self.white + self.password)
             print(self.green + "SHA256 Hash:" + self.white + self.hashword)
         else:
-            print(self.red + "That password is not in the top 10,000 passwords.")
+            print(self.red + "That password is not in the top " + str(dictSize) + " passwords.")
             user = input(self.blue +"Would you like to attempt to crack the password through brute force? [y/n]: ")
             if user == 'y':
                 self.bruteDecrypt()

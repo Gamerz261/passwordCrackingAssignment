@@ -1,20 +1,25 @@
 
 class DictionaryAttack:
 
-    def __int__(self):
+    content = ""
+    
+
+    def __init__(self):
         print('Running Dictionary Attack')
+
+    def dictSize(self):
+        with open(r"bigDict.txt", 'r') as pg:
+            self.content = pg.readlines()
+            dictSize = len(self.content)
+        #print(self.content)
+        return dictSize
+
     def check(self, password):
-        #input_file = open(r"passlist.txt", "r") Small Dict
-        input_file = open(r"bigDict.txt", "r") # Big Dict
-        content = input_file.readlines()
-        # print(content)
-        if password in content:
-            print("Password found in the top 10,000 most common passwords!")
+        size = DictionaryAttack.dictSize(self)
+        if password in self.content:
+            print("Password found in the top " + str(size) + " most common passwords!")
         else:
-            print("That password is not in the top 10,000 passwords.")
-        input_file.close()
+            print("That password is not in the top " + str(size) + " passwords.")
+
     def list(self, index):
-        input_file = open(r"passlist.txt", "r")
-        content = input_file.readlines()
-        return content[index].strip()
-        input_file.close()
+        return self.content[index].strip()

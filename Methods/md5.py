@@ -39,7 +39,7 @@ class MD5:
             for letter in itertools.product(self.chars, repeat=i):
                 self.attempts += 1
                 letter = ''.join(letter)
-                letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
+                letterHash = md5(letter.encode('utf-8')).hexdigest()
 
                 if letterHash.rstrip() == self.data.rstrip():
                     self.distance = time.time() - self.start
@@ -54,7 +54,8 @@ class MD5:
         start = time.time()
         distance = ""
         attempts = 0
-        for count in range(10000):
+        dictSize = DictionaryAttack.dictSize(self)
+        for count in range(dictSize):
             attempts += 1
             password = DictionaryAttack.list(self, count).rstrip()
             hashword = hashlib.md5(password.encode('utf-8')).hexdigest()
@@ -65,12 +66,10 @@ class MD5:
                 break
         if cracked:
             print(self.pink + "Password found in " + str(distance) + " seconds and " + str(attempts) + " attempts!")
-            print(self.green + "Password:", end=' ')
-            print(self.white + password)
-            print(self.green + "MD5 Hash:", end=' ')
-            print(self.white + hashword)
+            print(self.green + "Password:" + self.white + password)
+            print(self.green + "MD5 Hash:" + self.white + hashword)
         else:
-            print(self.red + "That password is not in the top 10,000 passwords.")
+            print(self.red + "That password is not in the top " + str(dictSize) + " passwords.")
             user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
             if user == 'y':
                 self.bruteDecrypt()
