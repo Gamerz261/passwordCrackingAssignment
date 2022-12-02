@@ -1,6 +1,7 @@
 import hashlib, time, itertools, os
 from Methods.dictionaryAttack import DictionaryAttack
 from Methods.bruteForce import BruteForce
+
 class SHA256:
 
     white = "\033[38;5;252m"

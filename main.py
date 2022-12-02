@@ -93,13 +93,4 @@ def encrypt(variable):
 
 
 if __name__ == "__main__":
-    # Shall we see about this?
-    # worker_count = 8
-    # worker_pool = []
-    # for _ in range(worker_count):
-    #     p = Process(target=main, args=(sys.argv[1:]))
-    #     p.start()
-    #     worker_pool.append(p)
-    # for p in worker_pool:
-    #     p.join()
     main(sys.argv[1:])
