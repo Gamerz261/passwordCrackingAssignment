@@ -35,7 +35,6 @@ class SHA256:
                 self.attempts += 1
                 letter = ''.join(letter)
                 letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
-
                 if letterHash.rstrip() == self.data.rstrip():
                     self.distance = time.time() - self.start
                     print(self.pink + "Password found through brute force in " + str(self.distance)+ " seconds and "+ str(self.attempts) + " attempts!")

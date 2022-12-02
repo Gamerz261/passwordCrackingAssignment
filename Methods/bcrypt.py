@@ -42,9 +42,7 @@ class BCrypt:
                 break
         if cracked:
             print(self.pink + "Password found in " + str(distance) + " seconds and " + str(attempts) + " attempts!")
-            print(self.green + "Password:", end=' ')
-            print(self.white + password)
-            print(self.green + "BCrypt Hash:", end=' ')
-            print(self.white + str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))[2:-1])
+            print(self.green + "Password: " + self.white + password)
+            print(self.green + "BCrypt Hash: " + self.white + str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))[2:-1])
         else:
             print(self.red + "That password is not in the top 10000 passwords.")

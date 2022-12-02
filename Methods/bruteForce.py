@@ -22,7 +22,6 @@ class BruteForce:
 
     # Brute force function
     def tryPassword(self):
-
         start = time.time()
         attempts = 0
         for i in range(1, 9):
