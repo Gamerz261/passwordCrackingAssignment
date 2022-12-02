@@ -50,9 +50,9 @@ def main(argv):
             mode.append(opt)
 
         if eod == 1:
-                encrypt(str(input(blue + "Password to be hashed: " + white)))
+            encrypt(str(input(blue + "Password to be hashed: " + white)))
         elif eod == 2:
-                decrypt(str(input(red + "Input hash to be cracked: " + white)))
+            decrypt(str(input(red + "Input hash to be cracked: " + white)))
 
 
 # Methods for decrypting a file
@@ -91,5 +91,15 @@ def encrypt(variable):
         print(green + "Password: " + white + str(variable))
         print(green + "BCrypt Encrypted: " + white + str(runner.encrypt())[2:-1])
 
+
 if __name__ == "__main__":
+    # Shall we see about this?
+    # worker_count = 8
+    # worker_pool = []
+    # for _ in range(worker_count):
+    #     p = Process(target=main, args=(sys.argv[1:]))
+    #     p.start()
+    #     worker_pool.append(p)
+    # for p in worker_pool:
+    #     p.join()
     main(sys.argv[1:])

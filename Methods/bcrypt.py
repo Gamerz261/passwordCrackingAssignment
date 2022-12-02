@@ -47,4 +47,8 @@ class BCrypt:
             print(self.green + "BCrypt Hash:", end=' ')
             print(self.white + str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))[2:-1])
         else:
+            self.bruteDecrypt()
             print(self.red + "That password is not in the top 10000 passwords.")
+
+    def bruteDecrypt(self):
+        print('What')

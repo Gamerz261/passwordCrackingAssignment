@@ -1,6 +1,7 @@
 # MD5: Encrypt and decrypt
 import hashlib,time, itertools
 from hashlib import md5
+from multiprocessing import Process,current_process
 # Import libraries from the dictionary attack file
 from Methods.dictionaryAttack import DictionaryAttack
 
@@ -47,6 +48,16 @@ class MD5:
                     print(self.green + "Password: " + self.white + letter)
                     return
 
+    def multiThread(self):
+        worker_count = 8
+        worker_pool = []
+        for _ in range(worker_count):
+            p = Process(target=self.bruteDecrypt(), args=())
+            p.start()
+            worker_pool.append(p)
+        for p in worker_pool:
+            p.join()  # Wait for all of the workers to finish.
+
     def decrypt(self):
         # Output Variables
         password = ''
@@ -72,7 +83,7 @@ class MD5:
             print(self.red + "That password is not in the top " + str(dictSize) + " passwords.")
             user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
             if user == 'y':
-                self.bruteDecrypt()
+                self.multiThread()
             else:
                 return
 
