@@ -50,17 +50,17 @@ def main(argv):
             mode.append(opt)
 
         if eod == 1:
-                encrypt(str(input(blue + "Password to be hashed: " + white)))
+            encrypt(str(input(blue + "Password to be hashed: " + white)))
         elif eod == 2:
-                decrypt(str(input(red + "Input hash to be cracked: " + white)))
+            decrypt(str(input(red + "Input hash to be cracked: " + white)))
 
 
 # Methods for decrypting a file
 def decrypt(variable):
     print(red + "Cracking..... ")
     if '-d' in mode:
-        runner = DictionaryAttack()
-        runner.check(variable)
+        runner = DictionaryAttack(variable)
+        runner.check()
     if '-f' in mode:
         runner = BruteForce(variable)
         runner.fPrint()
@@ -90,6 +90,7 @@ def encrypt(variable):
         runner = BCrypt(variable)
         print(green + "Password: " + white + str(variable))
         print(green + "BCrypt Encrypted: " + white + str(runner.encrypt())[2:-1])
+
 
 if __name__ == "__main__":
     main(sys.argv[1:])

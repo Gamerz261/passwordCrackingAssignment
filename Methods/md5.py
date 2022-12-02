@@ -1,6 +1,8 @@
 # MD5: Encrypt and decrypt
 import hashlib,time, itertools
+import posix
 from hashlib import md5
+from multiprocessing import Process,current_process
 # Import libraries from the dictionary attack file
 from Methods.dictionaryAttack import DictionaryAttack
 
@@ -19,6 +21,8 @@ class MD5:
     purple = "\033[38;5;20m"
 
     chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
+    row = -1
+    col = -1
 
     start = time.time()
     distance = ""
@@ -33,10 +37,10 @@ class MD5:
         self.data = md5(self.data.encode()).hexdigest()
         return self.data
 
-    def bruteDecrypt(self): #this fr just took 14 minutes on a random 5 digit password but it works i guess
-        print(self.blue + "Beginning brute force cracking... This may take a while.")
-        for i in range(1, 9):
-            for letter in itertools.product(self.chars, repeat=i):
+    def bruteDecrypt(self, row): #this fr just took 14 minutes on a random 5 digit password but it works i guess
+        if self.cracked == False:
+            #for i in range(1, 9):
+            for letter in itertools.product(self.chars, repeat=row):
                 self.attempts += 1
                 letter = ''.join(letter)
                 letterHash = md5(letter.encode('utf-8')).hexdigest()
@@ -45,7 +49,21 @@ class MD5:
                     self.distance = time.time() - self.start
                     print(self.pink + "Password found through brute force in " + str(self.distance)+ " seconds and "+ str(self.attempts) + " attempts!")
                     print(self.green + "Password: " + self.white + letter)
+                    self.cracked = True
                     return
+
+    def multiThread(self):
+        print(self.blue + "Beginning brute force cracking... This may take a while.")
+        worker_count = 1000
+        worker_pool = []
+        while self.cracked == False:
+            for _ in range(worker_count):
+                self.row += 1
+                p = Process(self.bruteDecrypt(self.row))
+                p.start()
+                worker_pool.append(p)
+        for p in worker_pool:
+            p.join()  # Wait for all of the workers to finish.
 
     def decrypt(self):
         # Output Variables
@@ -72,7 +90,7 @@ class MD5:
             print(self.red + "That password is not in the top " + str(dictSize) + " passwords.")
             user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
             if user == 'y':
-                self.bruteDecrypt()
+                self.multiThread()
             else:
                 return
 

@@ -17,10 +17,8 @@ class BCrypt:
         self.data = user
 
     def encrypt(self):
-        #print('augh')
         # Encode password into a readable utf-8 byte code:
         password = self.data.encode('utf-8')
-
         # Hash the decoded password and generate a salt:
         hashedPassword = bcrypt.hashpw(password, bcrypt.gensalt())
         return hashedPassword
@@ -32,7 +30,8 @@ class BCrypt:
         start = time.time()
         distance = ""
         attempts = 0
-        for count in range(10000):
+        dictSize = dictSize = DictionaryAttack.dictSize(self)
+        for count in range(dictSize):
             attempts += 1
             password = DictionaryAttack.list(self, count).rstrip()
             cracked = False
@@ -45,4 +44,11 @@ class BCrypt:
             print(self.green + "Password: " + self.white + password)
             print(self.green + "BCrypt Hash: " + self.white + str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))[2:-1])
         else:
-            print(self.red + "That password is not in the top 10000 passwords.")
+            print(self.red + "That password is not in the top " + str(dictSize) + " passwords.")
+            user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
+            if user == 'y':
+                self.bruteDecrypt()
+            else:
+                return
+
+
