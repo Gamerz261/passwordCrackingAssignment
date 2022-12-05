@@ -42,10 +42,11 @@ class SHA256:
                     return
                     
     def dictDecrypt(self):
-        dictSize = DictionaryAttack.dictSize(self)
+        dictSize, self.password = DictionaryAttack.dictSize(self, 0)
         for count in range(dictSize):
             self.attempts+=1
-            self.password = DictionaryAttack.list(self ,count).rstrip()
+            dictSize, self.password = DictionaryAttack.dictSize(self ,count)
+            #print(self.password)
             self.hashword = hashlib.sha256(self.password.encode('utf-8')).hexdigest()
             if self.hashword == self.data:
                 self.distance = time.time() - self.start

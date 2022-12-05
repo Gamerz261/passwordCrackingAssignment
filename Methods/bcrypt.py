@@ -35,11 +35,12 @@ class BCrypt:
         for count in range(10000):
             attempts += 1
             password = DictionaryAttack.list(self, count).rstrip()
+            print(password)
             cracked = False
-            if bcrypt.checkpw(password.encode('utf-8'), self.data.encode('utf-8')):
-                distance = time.time() - start
-                cracked = True
-                break
+            # if bcrypt.checkpw(password.encode('utf-8'), self.data.rstrip().encode('utf-8')):
+            #     distance = time.time() - start
+            #     cracked = True
+            #    break
         if cracked:
             print(self.pink + "Password found in " + str(distance) + " seconds and " + str(attempts) + " attempts!")
             print(self.green + "Password:", end=' ')

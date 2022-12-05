@@ -51,12 +51,12 @@ class DictionaryAttack:
         # else:
         #     return False
 
-    def dictSize(self):
+    def dictSize(self, index):
         with open(r"bigDict.txt", 'r') as pg:
             self.content = pg.readlines()
             dictSize = len(self.content)
         #print(self.content)
-        return dictSize
+        return dictSize, self.content[index].strip()
 
     def check(self, *passwords):
         global entry_found
@@ -73,8 +73,8 @@ class DictionaryAttack:
         else:
             print("That password is not in the top " + str(size) + " passwords.")
 
-    def list(self, index):
-        return self.content[index].strip()
+    # def list(self, index):
+    #     return self.content[index].strip()
 
     # New Stuff
     # import threading
