@@ -42,29 +42,29 @@ class DictionaryAttack:
         return thread_list
 
     def crack_password(self, password):
-        return True # The portion of code below does not work, return true for now.
-        # if bytes('Login failed', encoding='utf-8') not in response.content:
-        #     print('[*] Login successful for username: {} password: {}'.format(
-        #         'admin', password
-        #     ))
-        #     return True
-        # else:
-        #     return False
 
-    def dictSize(self, index):
+        if bytes('Login failed', encoding='utf-8') not in response.content:
+            print('[*] Login successful for username: {} password: {}'.format(
+                'admin', password
+            ))
+            return True
+        else:
+            return False
+
+    def dictSize(self):
         with open(r"bigDict.txt", 'r') as pg:
             self.content = pg.readlines()
             dictSize = len(self.content)
         #print(self.content)
-        return dictSize, self.content[index].strip()
+        return dictSize
 
     def check(self, *passwords):
         global entry_found
         for password in passwords:
-            #if entry_found:
-            #   break
+            if entry_found:
+                break
             # Passwords still contain last \n char which has to be stripped.
-            if self.crack_password(password.rstrip()):
+            if crack_password(password.rstrip()):
                 # This is set to True only once. No need for sync mechanisms.
                 entry_found = True
         size = DictionaryAttack.dictSize(self)
@@ -73,8 +73,8 @@ class DictionaryAttack:
         else:
             print("That password is not in the top " + str(size) + " passwords.")
 
-    # def list(self, index):
-    #     return self.content[index].strip()
+    def list(self, index):
+        return self.content[index].strip()
 
     # New Stuff
     # import threading

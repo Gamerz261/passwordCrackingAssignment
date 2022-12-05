@@ -100,7 +100,7 @@ class MD5:
             print(self.red + "That password is not in the top 10,000 passwords.")
             user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
             if user == 'y':
-                self.bruteDecrypt()
+                self.multiThread()
             else:
                 return
 
