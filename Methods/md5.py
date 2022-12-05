@@ -1,11 +1,12 @@
 # MD5: Encrypt and decrypt
-import hashlib,time, itertools
+import hashlib, time, itertools
 from hashlib import md5
-from multiprocessing import Process,current_process
+from multiprocessing import Process, current_process
 # Import libraries from the dictionary attack file
 from Methods.dictionaryAttack import DictionaryAttack
 
-#au
+
+# au
 class MD5:
     # Define storage for hash
     data = ''
@@ -21,7 +22,7 @@ class MD5:
 
     chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
     previous = ''
-    col = 0
+    charCol = 0
 
     start = time.time()
     distance = ""
@@ -36,7 +37,7 @@ class MD5:
         self.data = md5(self.data.encode()).hexdigest()
         return self.data
 
-    def bruteDecrypt(self, input): #this fr just took 14 minutes on a random 5 digit password but it works i guess
+    def bruteDecrypt(self, input):  # this fr just took 14 minutes on a random 5 digit password but it works i guess
         # print(self.blue + "Beginning brute force cracking... This may take a while.")
         # for i in range(1, 9):
         #     for letter in itertools.product(self.chars, repeat=i):
@@ -46,26 +47,28 @@ class MD5:
 
         if letterHash.rstrip() == self.data.rstrip():
             self.distance = time.time() - self.start
-            print(self.pink + "Password found through brute force in " + str(self.distance)+ " seconds and "+ str(self.attempts) + " attempts!")
+            print(self.pink + "Password found through brute force in " + str(self.distance) + " seconds and " + str(
+                self.attempts) + " attempts!")
             print(self.green + "Password: " + self.white + letter)
             return
 
     def multiThread(self):
-        worker_count = 8
+        # worker_count = 40320
         worker_pool = []
-        for _ in range(worker_count):
+        while not self.cracked:
             newPassword = ''
             # Reset the password to the initial character if col is maxed
-            if self.col > len(self.chars):
+            if self.charCol > len(self.chars):
                 newPassword = '1'
-                for _ in self.col:
+                for _ in self.charCol:
                     newPassword = newPassword + '1'
-                col = 0
+                self.charCol = 1
+            elif self.previous == '':
+                newPassword = '1'
             else:
-
-                newPassword = self.previous
-
-            p = Process(self.bruteDecrypt())
+                newPassword = self.previous[:len(self.previous - 1)] + self.chars[self.charCol]
+            self.previous = newPassword
+            p = Process(self.bruteDecrypt(newPassword))
             p.start()
             worker_pool.append(p)
         for p in worker_pool:
