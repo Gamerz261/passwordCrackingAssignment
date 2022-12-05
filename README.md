@@ -7,9 +7,9 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 
 - [x] Top 10,000 most common passwords can be cracked
 - [x] MD5 hashed passwords can be checked
-- [ ] BCrypt hashed passwords can be checked
+- [x] BCrypt hashed passwords can be checked
 - [x] SHA-256 hashed passwords can be checked
-- [ ] Brute force approach option
+- [x] Brute force approach option
 - [x] Dictionary Attack option
 - [X] Command line arguments can be taken in
 
