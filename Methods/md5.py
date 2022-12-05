@@ -1,6 +1,7 @@
 # MD5: Encrypt and decrypt
 import hashlib,time, itertools
 from hashlib import md5
+from multiprocessing import Process,current_process
 # Import libraries from the dictionary attack file
 from Methods.dictionaryAttack import DictionaryAttack
 
@@ -19,6 +20,8 @@ class MD5:
     purple = "\033[38;5;20m"
 
     chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
+    previous = ''
+    col = 0
 
     start = time.time()
     distance = ""
@@ -33,19 +36,40 @@ class MD5:
         self.data = md5(self.data.encode()).hexdigest()
         return self.data
 
-    def bruteDecrypt(self): #this fr just took 14 minutes on a random 5 digit password but it works i guess
-        print(self.blue + "Beginning brute force cracking... This may take a while.")
-        for i in range(1, 9):
-            for letter in itertools.product(self.chars, repeat=i):
-                self.attempts += 1
-                letter = ''.join(letter)
-                letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
+    def bruteDecrypt(self, input): #this fr just took 14 minutes on a random 5 digit password but it works i guess
+        # print(self.blue + "Beginning brute force cracking... This may take a while.")
+        # for i in range(1, 9):
+        #     for letter in itertools.product(self.chars, repeat=i):
+        self.attempts += 1
+        letter = input
+        letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
 
-                if letterHash.rstrip() == self.data.rstrip():
-                    self.distance = time.time() - self.start
-                    print(self.pink + "Password found through brute force in " + str(self.distance)+ " seconds and "+ str(self.attempts) + " attempts!")
-                    print(self.green + "Password: " + self.white + letter)
-                    return
+        if letterHash.rstrip() == self.data.rstrip():
+            self.distance = time.time() - self.start
+            print(self.pink + "Password found through brute force in " + str(self.distance)+ " seconds and "+ str(self.attempts) + " attempts!")
+            print(self.green + "Password: " + self.white + letter)
+            return
+
+    def multiThread(self):
+        worker_count = 8
+        worker_pool = []
+        for _ in range(worker_count):
+            newPassword = ''
+            # Reset the password to the initial character if col is maxed
+            if self.col > len(self.chars):
+                newPassword = '1'
+                for _ in self.col:
+                    newPassword = newPassword + '1'
+                col = 0
+            else:
+
+                newPassword = self.previous
+
+            p = Process(self.bruteDecrypt())
+            p.start()
+            worker_pool.append(p)
+        for p in worker_pool:
+            p.join()  # Wait for all of the workers to finish.
 
     def decrypt(self):
         # Output Variables
