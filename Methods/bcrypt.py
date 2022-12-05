@@ -2,7 +2,13 @@ import bcrypt, time
 from Methods.dictionaryAttack import DictionaryAttack
 
 class BCrypt:
-    data = ''
+
+    data = '' # User Input (Could be plain-text or hash)
+    password = '' # utf-8 encoded input
+    hashedPassword = '' # bcrypted user inputted password 
+    start = time.time()
+    distance = ""
+    attempts = 0
 
     # CoLoR cOdEs
     white = "\033[38;5;252m"
@@ -18,18 +24,12 @@ class BCrypt:
 
     def encrypt(self):
         # Encode password into a readable utf-8 byte code:
-        password = self.data.encode('utf-8')
+        self.password = self.data.encode('utf-8')
         # Hash the decoded password and generate a salt:
-        hashedPassword = bcrypt.hashpw(password, bcrypt.gensalt())
+        hashedPassword = bcrypt.hashpw(self.password, bcrypt.gensalt())
         return hashedPassword
 
     def decrypt(self):
-        # Output Variables
-        password = ''
-        hashword = ''
-        start = time.time()
-        distance = ""
-        attempts = 0
         dictSize = dictSize = DictionaryAttack.dictSize(self)
         for count in range(dictSize):
             attempts += 1
