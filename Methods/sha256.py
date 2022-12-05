@@ -1,4 +1,4 @@
-import hashlib, time, itertools, os
+import hashlib, time, itertools
 from Methods.dictionaryAttack import DictionaryAttack
 from Methods.bruteForce import BruteForce
 class SHA256:

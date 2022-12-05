@@ -72,7 +72,7 @@ def decrypt(variable):
         runner.dictDecrypt()
     if '-b' in mode:
         runner = BCrypt(variable)
-        runner.decrypt()
+        runner.dictDecrypt()
 
 
 # This is mostly just a convenience.
