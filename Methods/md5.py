@@ -21,8 +21,8 @@ class MD5:
     purple = "\033[38;5;20m"
 
     chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
-    row = -1
-    col = -1
+    col = 0
+    prevString = ""
 
     start = time.time()
     distance = ""
@@ -37,12 +37,13 @@ class MD5:
         self.data = md5(self.data.encode()).hexdigest()
         return self.data
 
-    def bruteDecrypt(self, row): #this fr just took 14 minutes on a random 5 digit password but it works i guess
+    def bruteDecrypt(self, letter): #this fr just took 14 minutes on a random 5 digit password but it works i guess
         if self.cracked == False:
-            #for i in range(1, 9):
-            for letter in itertools.product(self.chars, repeat=row):
                 self.attempts += 1
-                letter = ''.join(letter)
+            #for i in range(1, 9):
+            # for letter in itertools.product(self.chars, repeat=row):
+            #     self.attempts += 1
+            #     letter = ''.join(letter)
                 letterHash = md5(letter.encode('utf-8')).hexdigest()
 
                 if letterHash.rstrip() == self.data.rstrip():
@@ -54,14 +55,17 @@ class MD5:
 
     def multiThread(self):
         print(self.blue + "Beginning brute force cracking... This may take a while.")
-        worker_count = 1000
+        worker_count = 100
         worker_pool = []
         while self.cracked == False:
             for _ in range(worker_count):
-                self.row += 1
-                p = Process(self.bruteDecrypt(self.row))
-                p.start()
-                worker_pool.append(p)
+                self.col += 1
+                for self.prevString in itertools.product(self.chars, repeat=self.col):
+
+                    self.prevString = ''.join(self.prevString)
+                    p = Process(self.bruteDecrypt(self.prevString))
+                    p.start()
+                    worker_pool.append(p)
         for p in worker_pool:
             p.join()  # Wait for all of the workers to finish.
 
