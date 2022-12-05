@@ -36,6 +36,7 @@ The program will then promt you through the encryption or decryption process.
  - hashlib
  - sys
  - getopt
+ - bcrypt (pip install bcrypt)
 
 ### RUNNING THIS PROGRAM LOCALLY
 
