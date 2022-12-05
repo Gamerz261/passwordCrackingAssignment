@@ -1,8 +1,9 @@
 import hashlib, time, itertools
 from Methods.dictionaryAttack import DictionaryAttack
 from Methods.bruteForce import BruteForce
-class SHA256:
 
+
+class SHA256:
     white = "\033[38;5;252m"
     pink = "\033[38;5;5m"
     red = "\033[38;5;1m"
@@ -14,7 +15,9 @@ class SHA256:
     password = ''
     hashword = ''
 
-    chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?" 
+    chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
+    previous = ''
+    col = 0
 
     start = time.time()
     distance = ""
@@ -28,40 +31,41 @@ class SHA256:
         self.data = hashlib.sha256(self.data.encode('utf-8')).hexdigest()
         return self.data
 
-    def bruteDecrypt(self): #this fr just took 14 minutes on a random 5 digit password but it works i guess
-        print(self.blue + "Beginning brute force cracking... This may take a while.")
-        for i in range(1, 9):
-            for letter in itertools.product(self.chars, repeat=i):
-                self.attempts += 1
-                letter = ''.join(letter)
-                letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
-                if letterHash.rstrip() == self.data.rstrip():
-                    self.distance = time.time() - self.start
-                    print(self.pink + "Password found through brute force in " + str(self.distance)+ " seconds and "+ str(self.attempts) + " attempts!")
-                    print(self.green + "Password: " + self.white + letter)
-                    return
-                    
+    def bruteDecrypt(self, input):  # this fr just took 14 minutes on a random 5 digit password but it works i guess
+        # print(self.blue + "Beginning brute force cracking... This may take a while.")
+        # for i in range(1, 9):
+        #    for letter in itertools.product(self.chars, repeat=i):
+        self.attempts += 1
+        letter = input
+        letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
+
+        if letterHash.rstrip() == self.data.rstrip():
+            self.distance = time.time() - self.start
+            print(self.pink + "Password found through brute force in " + str(self.distance) + " seconds and " + str(
+                self.attempts) + " attempts!")
+            print(self.green + "Password: " + self.white + letter)
+            return
+
     def dictDecrypt(self):
         dictSize, self.password = DictionaryAttack.dictSize(self, 0)
         for count in range(dictSize):
-            self.attempts+=1
-            dictSize, self.password = DictionaryAttack.dictSize(self ,count)
-            #print(self.password)
+            self.attempts += 1
+            dictSize, self.password = DictionaryAttack.dictSize(self, count)
+            # print(self.password)
             self.hashword = hashlib.sha256(self.password.encode('utf-8')).hexdigest()
             if self.hashword == self.data:
                 self.distance = time.time() - self.start
                 self.cracked = True
                 break
         if self.cracked:
-            print(self.pink + "Password found in " + str(self.distance) + " seconds and "+ str(self.attempts) + " attempts!")
+            print(self.pink + "Password found in " + str(self.distance) + " seconds and " + str(
+                self.attempts) + " attempts!")
             print(self.green + "Password:" + self.white + self.password)
             print(self.green + "SHA256 Hash:" + self.white + self.hashword)
         else:
             print(self.red + "That password is not in the top " + str(dictSize) + " passwords.")
-            user = input(self.blue +"Would you like to attempt to crack the password through brute force? [y/n]: ")
+            user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
             if user == 'y':
-                self.bruteDecrypt()
+                self.bruteDecrypt("poop")
             else:
                 return
-
-    
