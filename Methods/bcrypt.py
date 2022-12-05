@@ -2,13 +2,7 @@ import bcrypt, time
 from Methods.dictionaryAttack import DictionaryAttack
 
 class BCrypt:
-
-    data = '' # User Input (Could be plain-text or hash)
-    password = '' # utf-8 encoded input
-    hashedPassword = '' # bcrypted user inputted password 
-    start = time.time()
-    distance = ""
-    attempts = 0
+    data = ''
 
     # CoLoR cOdEs
     white = "\033[38;5;252m"
@@ -23,15 +17,22 @@ class BCrypt:
         self.data = user
 
     def encrypt(self):
+        #print('augh')
         # Encode password into a readable utf-8 byte code:
-        self.password = self.data.encode('utf-8')
+        password = self.data.encode('utf-8')
+
         # Hash the decoded password and generate a salt:
-        hashedPassword = bcrypt.hashpw(self.password, bcrypt.gensalt())
+        hashedPassword = bcrypt.hashpw(password, bcrypt.gensalt())
         return hashedPassword
 
-    def decrypt(self):
-        dictSize = dictSize = DictionaryAttack.dictSize(self)
-        for count in range(dictSize):
+    def dictDecrypt(self):
+        # Output Variables
+        password = ''
+        hashword = ''
+        start = time.time()
+        distance = ""
+        attempts = 0
+        for count in range(10000):
             attempts += 1
             password = DictionaryAttack.list(self, count).rstrip()
             cracked = False
@@ -41,14 +42,9 @@ class BCrypt:
                 break
         if cracked:
             print(self.pink + "Password found in " + str(distance) + " seconds and " + str(attempts) + " attempts!")
-            print(self.green + "Password: " + self.white + password)
-            print(self.green + "BCrypt Hash: " + self.white + str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))[2:-1])
+            print(self.green + "Password:", end=' ')
+            print(self.white + password)
+            print(self.green + "BCrypt Hash:", end=' ')
+            print(self.white + str(bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()))[2:-1])
         else:
-            print(self.red + "That password is not in the top " + str(dictSize) + " passwords.")
-            user = input(self.blue + "Would you like to attempt to crack the password through brute force? [y/n]: ")
-            if user == 'y':
-                self.bruteDecrypt()
-            else:
-                return
-
-
+            print(self.red + "That password is not in the top 10000 passwords.")
