@@ -37,44 +37,44 @@ class MD5:
         self.data = md5(self.data.encode()).hexdigest()
         return self.data
 
-    def bruteDecrypt(self, input):  # this fr just took 14 minutes on a random 5 digit password but it works i guess
+    def bruteDecrypt(self):  # this fr just took 14 minutes on a random 5 digit password but it works i guess
         # print(self.blue + "Beginning brute force cracking... This may take a while.")
         # for i in range(1, 9):
         #     for letter in itertools.product(self.chars, repeat=i):
         # print("BDC - " + input)
-        self.attempts += 1
-        letter = input
-        letterHash = hashlib.md5(letter.encode('utf-8')).hexdigest()
+        while not self.cracked:
 
-        if letterHash.rstrip() == self.data.rstrip():
-            self.cracked = True
-            self.distance = time.time() - self.start
-            print(self.pink + "Password found through brute force in " + str(self.distance) + " seconds and " + str(
-                self.attempts) + " attempts!")
-            print(self.green + "Password: " + self.white + letter)
-            return
-        else:
-            return
+            self.attempts += 1
+            letter = self.base94.encode(self.charCol)
+            #print("BDC - " + letter)
+            self.charCol += 1
+            self.previous = letter
+            letterHash = hashlib.md5(letter.encode('utf-8')).hexdigest()
 
-    worker_pool = []
+            if letterHash.rstrip() == self.data.rstrip():
+                self.cracked = True
+                self.distance = time.time() - self.start
+                print(self.pink + "Password found through brute force in " + str(self.distance) + " seconds and " + str(
+                    self.attempts) + " attempts!")
+                print(self.green + "Password: " + self.white + letter)
+                self.killWorkers()
+                return
 
-    def terminateWorkers(self):
-        for p in self.worker_pool:
-            p.close()
+    def killWorkers(self):
+        for p in worker_pool:
+            p.terminate()
+        return
 
     def multiThread(self):
-        # worker_count = 40320
-        while not self.cracked:
-            newPassword = self.base94.encode(self.charCol)
-            self.charCol += 1
-            self.previous = newPassword
-            #print(str(newPassword) + ' | ' + str(self.charCol))
-            p = Process(self.bruteDecrypt(newPassword))
+        worker_count = 128
+        global worker_pool
+        worker_pool = []
+        for _ in range(worker_count):
+            p = Process(target=self.bruteDecrypt(), args=())
             p.start()
-            self.worker_pool.append(p)
-            p.join()
-        #for p in self.worker_pool:
-            #p.join()  # Wait for all of the workers to finish.
+            worker_pool.append(p)
+        for p in worker_pool:
+            p.join()  # Wait for all of the workers to finish.
 
     def decrypt(self):
         # Output Variables
