@@ -4,6 +4,7 @@ from hashlib import md5
 from multiprocessing import Process, current_process
 # Import libraries from the dictionary attack file
 from Methods.dictionaryAttack import DictionaryAttack
+from basehash import HASH_LENGTH, base94
 
 
 # au
@@ -22,7 +23,8 @@ class MD5:
 
     chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
     previous = ''
-    charCol = 0
+    base94 = base94()
+    charCol = 1
 
     start = time.time()
     distance = ""
@@ -58,21 +60,11 @@ class MD5:
         # worker_count = 40320
         worker_pool = []
         while not self.cracked:
-            newPassword = ''
-            # Reset the password to the initial character if col is maxed
-            if self.charCol == (len(self.chars)):
-                newPassword = '1'
-                for _ in range(len(self.previous)):
-                    newPassword = newPassword + '1'
-                self.charCol = 1
-            elif self.previous == '':
-                newPassword = '1'
-            else:
-                newPassword = self.previous[:len(self.previous)-1] + self.chars[self.charCol]
-                self.charCol += 1
-                print(newPassword)
+            newPassword = self.base94.encode(self.charCol)
+            self.charCol += 1
             self.previous = newPassword
-            p = Process(self.bruteDecrypt(newPassword))
+            print(str(newPassword))
+            p = Process(target=self.bruteDecrypt(newPassword))
             p.start()
             worker_pool.append(p)
         for p in worker_pool:
