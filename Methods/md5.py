@@ -43,6 +43,7 @@ class MD5:
         # print(self.blue + "Beginning brute force cracking... This may take a while.")
         # for i in range(1, 9):
         #     for letter in itertools.product(self.chars, repeat=i):
+        print("BDC - " + input)
         self.attempts += 1
         letter = input
         letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
@@ -63,8 +64,8 @@ class MD5:
             newPassword = self.base94.encode(self.charCol)
             self.charCol += 1
             self.previous = newPassword
-            print(str(newPassword))
-            p = Process(target=self.bruteDecrypt(newPassword))
+            print(str(newPassword) + ' | ' + str(self.charCol))
+            p = Process(self.bruteDecrypt(newPassword))
             p.start()
             worker_pool.append(p)
         for p in worker_pool:
