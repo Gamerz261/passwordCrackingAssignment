@@ -19,7 +19,7 @@ class MD5:
     blue = "\033[38;5;4m"
     purple = "\033[38;5;20m"
 
-    chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
+    #chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
     previous = ''
     base94 = base94()
     charCol = 1
@@ -66,6 +66,7 @@ class MD5:
         return
 
     def multiThread(self):
+        print(self.blue + "Multithreading brute force cracking... This may take a while.")
         worker_count = 128
         global worker_pool
         worker_pool = []
