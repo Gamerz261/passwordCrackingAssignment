@@ -41,4 +41,4 @@ The program will then promt you through the encryption or decryption process.
 
 ### RUNNING THIS PROGRAM LOCALLY
 
-To run this program please download and install all of the nessecary dependencies and run the example command above
+To run this program please download and install all the necessary dependencies and run the example command above
