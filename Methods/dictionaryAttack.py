@@ -13,6 +13,13 @@ class DictionaryAttack:
         else:
             print("That password is not in the top 10,000 passwords.")
         input_file.close()
+
+    def dictSize(self):
+        input_file = open(r"passList.txt", "r")
+        content = input_file.readlines()
+        input_file.close()
+        return len(content)
+
     def list(self, index):
         input_file = open(r"passList.txt", "r")
         content = input_file.readlines()
