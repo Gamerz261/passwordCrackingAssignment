@@ -37,6 +37,7 @@ The program will then promt you through the encryption or decryption process.
  - sys
  - getopt
  - bcrypt (pip install bcrypt)
+ - basehash (pip install BaseHash)
 
 ### RUNNING THIS PROGRAM LOCALLY
 
