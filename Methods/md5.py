@@ -51,6 +51,8 @@ class MD5:
                 self.attempts) + " attempts!")
             print(self.green + "Password: " + self.white + letter)
             return
+        else:
+            return
 
     def multiThread(self):
         # worker_count = 40320
@@ -58,15 +60,17 @@ class MD5:
         while not self.cracked:
             newPassword = ''
             # Reset the password to the initial character if col is maxed
-            if self.charCol > len(self.chars):
+            if self.charCol == (len(self.chars)):
                 newPassword = '1'
-                for _ in self.charCol:
+                for _ in range(len(self.previous)):
                     newPassword = newPassword + '1'
                 self.charCol = 1
             elif self.previous == '':
                 newPassword = '1'
             else:
-                newPassword = self.previous[:len(self.previous - 1)] + self.chars[self.charCol]
+                newPassword = self.previous[:len(self.previous)-1] + self.chars[self.charCol]
+                self.charCol += 1
+                print(newPassword)
             self.previous = newPassword
             p = Process(self.bruteDecrypt(newPassword))
             p.start()
@@ -81,7 +85,7 @@ class MD5:
         start = time.time()
         distance = ""
         attempts = 0
-        for count in range(99998):
+        for count in range(10000):
             attempts += 1
             d = DictionaryAttack()
             password = d.list(count).rstrip()
