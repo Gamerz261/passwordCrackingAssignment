@@ -81,9 +81,10 @@ class MD5:
         start = time.time()
         distance = ""
         attempts = 0
-        for count in range(10000):
+        for count in range(99998):
             attempts += 1
-            password = DictionaryAttack.list(self, count).rstrip()
+            d = DictionaryAttack()
+            password = d.list(count).rstrip()
             hashword = hashlib.md5(password.encode('utf-8')).hexdigest()
             cracked = False
             if hashword == self.data:
