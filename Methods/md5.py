@@ -1,13 +1,11 @@
 # MD5: Encrypt and decrypt
-import hashlib, time, itertools
+import hashlib
+import time
 from hashlib import md5
-from multiprocessing import Process, current_process
-# Import libraries from the dictionary attack file
+from multiprocessing import Process
+from basehash import base94
 from Methods.dictionaryAttack import DictionaryAttack
-from basehash import HASH_LENGTH, base94
 
-
-# au
 class MD5:
     # Define storage for hash
     data = ''
@@ -43,12 +41,13 @@ class MD5:
         # print(self.blue + "Beginning brute force cracking... This may take a while.")
         # for i in range(1, 9):
         #     for letter in itertools.product(self.chars, repeat=i):
-        print("BDC - " + input)
+        # print("BDC - " + input)
         self.attempts += 1
         letter = input
-        letterHash = hashlib.sha256(letter.encode('utf-8')).hexdigest()
+        letterHash = hashlib.md5(letter.encode('utf-8')).hexdigest()
 
         if letterHash.rstrip() == self.data.rstrip():
+            self.cracked = True
             self.distance = time.time() - self.start
             print(self.pink + "Password found through brute force in " + str(self.distance) + " seconds and " + str(
                 self.attempts) + " attempts!")
@@ -57,19 +56,25 @@ class MD5:
         else:
             return
 
+    worker_pool = []
+
+    def terminateWorkers(self):
+        for p in self.worker_pool:
+            p.close()
+
     def multiThread(self):
         # worker_count = 40320
-        worker_pool = []
         while not self.cracked:
             newPassword = self.base94.encode(self.charCol)
             self.charCol += 1
             self.previous = newPassword
-            print(str(newPassword) + ' | ' + str(self.charCol))
+            #print(str(newPassword) + ' | ' + str(self.charCol))
             p = Process(self.bruteDecrypt(newPassword))
             p.start()
-            worker_pool.append(p)
-        for p in worker_pool:
-            p.join()  # Wait for all of the workers to finish.
+            self.worker_pool.append(p)
+            p.join()
+        #for p in self.worker_pool:
+            #p.join()  # Wait for all of the workers to finish.
 
     def decrypt(self):
         # Output Variables
