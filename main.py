@@ -71,8 +71,9 @@ def decrypt(variable):
         runner = SHA256(variable)
         runner.dictDecrypt()
     if '-b' in mode:
+
         runner = BCrypt(variable)
-        runner.dictDecrypt()
+        runner.decrypt()#str(input(red + "Input salt to be used: " + white)))
 
 
 # This is mostly just a convenience.

@@ -67,7 +67,7 @@ class MD5:
 
     def multiThread(self):
         print(self.blue + "Multithreading brute force cracking... This may take a while.")
-        worker_count = 128
+        worker_count = 1024
         global worker_pool
         worker_pool = []
         for _ in range(worker_count):
