@@ -26,6 +26,7 @@ class BCrypt:
         return hashedPassword
 
     def decrypt(self):
+        print(self.orange + "WARNING: BCrypt hashing can take several minutes!")
         dictSize = DictionaryAttack.dictSize(self)
         # Output Variables
         password = ''
