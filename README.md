@@ -17,19 +17,22 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 
 ```
 -h               // HELP 
+
+/** Encryption Algorithms **/
 -d               // DICTIONARY ATTACK
 -m               // md5 ATTACK
 -s               // sha256 ATTACK
 -b               // BCrypt ATTACK
-/** ARGUMENTS **/
-```
 
-### FORMATTING
+/** Encrypt or Decrypt **/
+-
+-
 
+/** Dictionary or Brute Force **/
+-
+-
+-
 ```
-~$ python3 main.py <FLAG>
-```
-The program will then promt you through the encryption or decryption process.
 
 ### DEPENDENCIES
  - Python3 (duh)
@@ -41,4 +44,11 @@ The program will then promt you through the encryption or decryption process.
 
 ### RUNNING THIS PROGRAM LOCALLY
 
-To run this program please download and install all the necessary dependencies and run the example command above
+To run this program on a local machine you will need to install all of the nessecary dependencies, and then call `main.py` along with any flags you may want to have
+
+### FORMATTING
+
+```
+~$ python3 main.py <ENCRYPTION ALGORITHM> <ENCRYPT OR DECRYPT> <DICTIONARY OR BRUTE FORCE>
+```
+The program will then promt you through the encryption or decryption process.
