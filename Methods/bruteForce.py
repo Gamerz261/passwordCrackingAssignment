@@ -37,7 +37,7 @@ class BruteForce:
     def fPrint(self):
         distance, attempts = self.tryPassword()
         print(self.pink+"Password found through brute force in %s seconds and %s attempts!" % (distance, attempts))
-        print(self.green + "Password: " + self.white + self.data, end='')
+        print(self.green + "Password: " + self.white + self.data)
         
 
                 

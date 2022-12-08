@@ -26,13 +26,14 @@ class BCrypt:
         return hashedPassword
 
     def decrypt(self):
+        dictSize = DictionaryAttack.dictSize(self)
         # Output Variables
         password = ''
         hashword = ''
         start = time.time()
         distance = ""
         attempts = 0
-        for count in range(10000):
+        for count in range(dictSize):
             attempts += 1
             password = DictionaryAttack.list(self, count).rstrip()
             cracked = False
