@@ -13,27 +13,6 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 - [x] Dictionary Attack option
 - [X] Command line arguments can be taken in
 
-### FLAGS
-
-```
--h               // HELP 
-
-/** Encryption Algorithms **/
--d               // DICTIONARY ATTACK
--m               // md5 ATTACK
--s               // sha256 ATTACK
--b               // BCrypt ATTACK
-
-/** Encrypt or Decrypt **/
--
--
-
-/** Dictionary or Brute Force **/
--
--
--
-```
-
 ### DEPENDENCIES
  - Python3 (duh)
  - hashlib
@@ -42,13 +21,40 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
  - bcrypt (pip install bcrypt)
  - basehash (pip install BaseHash)
 
-### RUNNING THIS PROGRAM LOCALLY
+# RUNNING THIS PROGRAM LOCALLY
 
 To run this program on a local machine you will need to install all of the nessecary dependencies, and then call `main.py` along with any flags you may want to have
 
 ### FORMATTING
 
 ```
-~$ python3 main.py <ENCRYPTION ALGORITHM> <ENCRYPT OR DECRYPT> <DICTIONARY OR BRUTE FORCE>
+~$ python3 main.py <ENCRYPTION ALGORITHM> [ENCRYPT OR DECRYPT] {PASSWORD / HASH} [DICTIONARY OR BRUTE FORCE]
 ```
 The program will then promt you through the encryption or decryption process.
+
+##### Formatting Key
+`<>` - A required flag 
+`{}` - A required parameter 
+`[]` - An optional flag 
+`<-->` - An optional parameter 
+
+### FLAGS
+
+```
+-h               // HELP 
+
+/** Encryption Algorithms **/
+-a               // DICTIONARY ATTACK
+-m               // md5 ATTACK
+-s               // sha256 ATTACK
+-b               // BCrypt ATTACK
+
+/** Encrypt or Decrypt **/
+-e               // Encrypt
+-d               // Decrypt
+
+/** Dictionary or Brute Force **/
+-c               // Dictionary
+-f               // Brute Force
+-y               // Perform Both
+```
