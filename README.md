@@ -2,24 +2,24 @@
 
 Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 
-*- <3 Stephen (and Caleb too but I made this readme)*
+*- <3 Stephen (and Caleb too but I made this readme)😈*
 ### Rubric (50/50)
 
-- [x] Top 10,000 most common passwords can be cracked
-- [x] MD5 hashed passwords can be checked
-- [x] BCrypt hashed passwords can be checked
-- [x] SHA-256 hashed passwords can be checked
-- [x] Brute force approach option
-- [x] Dictionary Attack option
-- [X] Command line arguments can be taken in
+- [x] Top 10,000 most common passwords can be cracked 🤽🏿‍♀️
+- [x] MD5 hashed passwords can be checked 🏄🏻‍♀️
+- [x] BCrypt hashed passwords can be checked 🛝
+- [x] SHA-256 hashed passwords can be checked ❤️‍🔥
+- [x] Brute force approach option 📦
+- [x] Dictionary Attack option 📅
+- [X] Command line arguments can be taken in 🫦
 
 ### DEPENDENCIES
  - Python3 🥱
  - hashlib
  - sys
  - getopt
- - bcrypt (pip install bcrypt)
- - basehash (pip install BaseHash)
+ - bcrypt (pip install bcrypt) 🧠
+ - basehash (pip install BaseHash) 💂🏻
 
 # RUNNING THIS PROGRAM LOCALLY
 
@@ -36,7 +36,7 @@ The program will then promt you through the encryption or decryption process.
 `<>` - A required flag 
 `{}` - A required parameter 
 `[]` - An optional flag 
-`<-->` - An optional parameter 
+`<-->` - An optional parameter 👹
 
 ### FLAGS
 
