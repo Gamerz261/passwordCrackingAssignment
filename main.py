@@ -21,15 +21,15 @@ blue4 = "\033[38;5;215m"
 
 
 def main(argv):
-    # Takes in arguments from the command line
+    variable = sys.argv[len(sys.argv)-1] # Takes in arguments from the command line
+
+    if len(sys.argv)<2: # If no arguments are given, print a helpful tip.
+        print("No arguments given. Use -h for more info.")
+
     try:
-        opts, args = getopt.getopt(argv, "hmsbafydex:")
+        opts, args = getopt.getopt(argv, "hmsbcfydex:") # All flag options
     except getopt.GetoptError:
         sys.exit(2)
-
-    if len(sys.argv)<2: # If no arguments are given, print the help output
-        print("No arguments given. Use -h for more info.")
-        opts.append('-h')
 
     for opt, arg in opts:
         if '-h' in sys.argv:
@@ -39,19 +39,21 @@ def main(argv):
             print(blue2+" \u2937 Hashing Algorithms:\n  '-m' - md5\n  '-s' - SHA256\n  '-b' - BCrypt")
             print(blue3+" \u2937 Must be used alongside a hashing algorithm:\n  '-e' - Encrypt\n  '-d' - Decrypt")
             print(blue4+" \u2937 Can be used alongside a hashing algorithm or standalone:\n  '-d' - Dictionary Attack\n  '-f' - Brute Force")
-        if '-e' in sys.argv:
-            encrypt(sys.argv[len(sys.argv)-1])
-        elif opt in ['-d','-f','-c']: # The decrpyt method will run for dictionary and brute force with this too.
-            decrypt(sys.argv[len(sys.argv)-1])
-
+        if opt in ['-d','-f','-c']: # The decrpyt method will run for dictionary and brute force with this too.
+            decrypt(variable)
+            break
+        elif '-e' in sys.argv:
+            encrypt(variable)
+            break
 
 # Methods for decrypting a file
 def decrypt(variable):
-    print(red + "Cracking..... ")
     if '-c' in sys.argv:
         runner = DictionaryAttack()
         runner.check(variable)
-    elif '-f' in sys.argv:
+        return
+    print(red + "Cracking..... ")
+    if '-f' in sys.argv:
         runner = BruteForce(variable)
         runner.fPrint()
     elif '-m' in sys.argv:
