@@ -17,23 +17,28 @@ class MD5:
     green = "\033[38;5;150m"
     blue = "\033[38;5;4m"
     purple = "\033[38;5;20m"
-
+    
+    # List all of the characters use for decryption (Base96)
     chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
-
+    
+    # Analysis data
     start = time.time()
     distance = ""
     attempts = 0
     cracked = False
-
+    
     def __init__(self, user):
         # Initialize variable
         self.data = user
-
+    
+    # Encrypt!
     def encrypt(self):
+        # Use the md5 Library to convert data to utf-8 and then uncode using md5 library
         self.data = md5(self.data.encode()).hexdigest()
         return self.data
-
-    def bruteDecrypt(self): #this fr just took 14 minutes on a random 5 digit password but it works i guess
+    
+    # 
+    def bruteDecrypt(self):
         print(self.blue + "Beginning brute force cracking... This may take a while.")
         for i in range(1, 9):
             for letter in itertools.product(self.chars, repeat=i):
