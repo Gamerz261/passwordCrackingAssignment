@@ -28,7 +28,7 @@ class DictionaryAttack:
             print(self.green+"Password found in the top " + str(size) + " most common passwords!")
             print("Password: "+ self.white + password, end='')
         else:
-            print("That password is not in the top " + str(size) + " passwords.")
+            print(self.red+"That password is not in the top " + str(size) + " passwords.")
 
     def list(self, index):
         return self.content[index].strip()

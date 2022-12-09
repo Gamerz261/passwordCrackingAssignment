@@ -21,8 +21,8 @@ class BCrypt:
         # Encode password into a readable utf-8 byte code:
         password = self.data.encode('utf-8')
         
-        # Hash the decoded password and generate a salt:
-        hashedPassword = bcrypt.hashpw(password[2:-1], bcrypt.gensalt())
+        # Hash the decoded password and generate a salt
+        hashedPassword = bcrypt.hashpw(password, bcrypt.gensalt()) # had it after password
         return hashedPassword
 
     def decrypt(self):
