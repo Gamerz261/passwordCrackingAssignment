@@ -17,13 +17,17 @@ class BruteForce:
     # Allowed characters
     chars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`~!@#$%^&*()_-+=[{]}|:;'\",<.>/?"
 
+    # Initialize the method with input from the user
     def __init__(self, user):
         self.data = user
 
     # Brute force function
     def tryPassword(self):
-
+        
+        # Start the time for analysis purposes
         start = time.time()
+        
+        # Itterate through the character list and try to find an 8-character password
         attempts = 0
         for i in range(1, 9):
             for letter in itertools.product(self.chars, repeat=i):
