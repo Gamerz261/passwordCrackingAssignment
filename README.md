@@ -5,7 +5,7 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 *- <3 Stephen and Caleb 😈*
 ### Rubric (50/50)
 
-- [x] Top 10,000 most common passwords can be cracked 🤽🏿‍♀️
+- [x] Top 1,000,000 most common passwords can be cracked 🤽🏿‍♀️
 - [x] MD5 hashed passwords can be checked 🏄🏻‍♀️
 - [x] BCrypt hashed passwords can be checked 🛝
 - [x] SHA-256 hashed passwords can be checked ❤️‍🔥
@@ -22,7 +22,7 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 
 # RUNNING THIS PROGRAM LOCALLY
 
-To run this program on a local machine you will need to install all of the nessecary dependencies, and then call `main.py` along with any flags you may want to have 🫡
+To run this program on a local machine you will need to install all of the nessecary dependencies, and then call `main.py` along with any flags you may want to have 🫡 
 
 ### FORMATTING
 
