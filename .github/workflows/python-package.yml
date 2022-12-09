@@ -31,4 +31,4 @@ jobs:
         python -m pip install basehash
     - name: Test with pytest
       run: |
-        pytest -c password
+        python3 main.py -c password
