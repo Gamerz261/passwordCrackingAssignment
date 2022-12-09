@@ -2,7 +2,7 @@
 
 Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
 
-*- <3 Stephen (and Caleb too but I made this readme)😈*
+*- <3 Stephen and Caleb 😈*
 ### Rubric (50/50)
 
 - [x] Top 10,000 most common passwords can be cracked 🤽🏿‍♀️
@@ -19,7 +19,6 @@ Coded in Python, As assigned by the 2022 CSHS Cybersecurity course
  - sys
  - getopt
  - bcrypt (pip install bcrypt) 🧠
- - basehash (pip install BaseHash) 💂🏻
 
 # RUNNING THIS PROGRAM LOCALLY
 
